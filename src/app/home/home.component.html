@@ -1,0 +1,22 @@
+<div class="calculator">
+  <form class="tempcalc" (ngSubmit)="onSubmit($event)">
+    <div class="col-sm-3 form-group">
+      <select name="cars" id="cars">
+        <option value="Celsius">Celsius</option>
+        <option value="fahrenheit">fahrenheit</option>
+      </select>
+      <input type="number" name="firstValue" [(ngModel)]="firstValue" class="form-control" />
+    </div>
+    <button type="button" (click) = "convert()">convert</button>
+    <div class="col-sm-3 form-group">
+      <select name="cars" id="cars">
+        <option value="Celsius">Celsius</option>
+        <option value="fahrenheit">fahrenheit</option>
+      </select>
+
+      <input type="number" name="secondValue" [value]="secondValue" class="form-control" disabled/>
+
+    </div>
+  </form>
+
+</div>
