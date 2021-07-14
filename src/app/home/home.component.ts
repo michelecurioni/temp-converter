@@ -8,8 +8,9 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   @Input() firstValue: number = 0;
   secondValue = 0
+  secondValueText:string = '0'
   selectedUnitFrom: string = 'celsius';
-  selectedUnitTo: string = 'fahrenheit';
+  selectedUnitTo: string = 'celsius';
 
   constructor() { }
 
@@ -20,23 +21,48 @@ export class HomeComponent implements OnInit {
   }
 
   convert(){
-    let tempValue:number = 0;
-    switch(this.selectedUnitTo) {
+    let intermediateValue:number = this.firstValue;
+    if (this.selectedUnitFrom === this.selectedUnitTo) {
+        this.secondValue = this.firstValue;
+        this.secondValueText = ''+this.secondValue;
+        return;
+    }
+
+    switch(this.selectedUnitFrom) {
        case 'fahrenheit': {
-         switch(this.selectedUnitFrom) {
-            case 'celsius': {
-               this.secondValue = this.fromCelsiusToFahrenheit(this.firstValue);
-               break;
-            }
-          }
-          break;
+         intermediateValue = this.fromFahrenheitToCelsius(this.firstValue);
+         break;
+       }
+       case 'celsius': {
+         intermediateValue = this.firstValue;
+         break;
        }
        default: {
           //statements;
+          console.log('no from unit');
           break;
        }
     }
-    console.log("First Value = " + this.firstValue);
+
+    console.log("Interm Value = " + intermediateValue);
+
+    switch(this.selectedUnitTo) {
+       case 'fahrenheit': {
+         this.secondValue = this.fromCelsiusToFahrenheit(intermediateValue);
+         break;
+       }
+       case 'celsius': {
+         this.secondValue = intermediateValue;
+         break;
+       }
+       default: {
+          //statements;
+          console.log('no to unit');
+          break;
+       }
+    }
+    this.secondValueText = ''+this.secondValue;
+    console.log("Second Value = " + this.secondValue);
   }
 
 
@@ -45,6 +71,7 @@ export class HomeComponent implements OnInit {
   unitFromChangeHandler (event: any) {
     //update the ui
     this.selectedUnitFrom = event.target.value;
+    this.secondValue = 0
     console.log("Selected From = " + this.selectedUnitFrom);
   }
 
@@ -52,6 +79,7 @@ export class HomeComponent implements OnInit {
   unitToChangeHandler (event: any) {
     //update the ui
     this.selectedUnitTo = event.target.value;
+    this.secondValueText = ''
     console.log("Selected To = " + this.selectedUnitFrom);
   }
 
@@ -61,5 +89,7 @@ export class HomeComponent implements OnInit {
     return (value * 9/5) + 32;
   }
 
-
+  fromFahrenheitToCelsius(value : number) : number {
+    return (value - 32)*5/9;
+  }
 }

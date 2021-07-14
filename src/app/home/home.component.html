@@ -1,20 +1,23 @@
 <div class="calculator">
   <form class="tempcalc" (ngSubmit)="onSubmit($event)">
     <div class="col-sm-3 form-group">
+      <div class="select" style="width:200px;">
       <select (change)="unitFromChangeHandler($event)">
-        <option value="Celsius">Celsius</option>
+        <option value="Celsius">celsius</option>
         <option value="fahrenheit">fahrenheit</option>
       </select>
+      </div>
       <input type="number" name="firstValue" [(ngModel)]="firstValue" class="form-control" />
     </div>
     <button type="button" (click) = "convert()">convert</button>
+
     <div class="col-sm-3 form-group">
-      <select name="cars" id="cars">
-        <option value="Celsius">Celsius</option>
+      <select (change)="unitToChangeHandler($event)">
+        <option value="Celsius">celsius</option>
         <option value="fahrenheit">fahrenheit</option>
       </select>
 
-      <input type="number" name="secondValue" [value]="secondValue" class="form-control" disabled/>
+      <input type="text" name="secondValue" [value]="secondValueText" class="form-control" disabled/>
 
     </div>
   </form>
