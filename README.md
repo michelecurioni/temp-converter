@@ -1,27 +1,26 @@
-# MyApp
+# Temperature Converter
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.12.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Development
+The easiest way to develop and test locally is by using an existing Docker image with all the Angular dependencies installed.
+I use the following command to start such a container:
+```
+docker container run --rm -v $(pwd):/opt -w /opt -p 4200:4200 teracy/angular-cli  ng serve --host=0.0.0.0
+```
+To view the webapp open browser at address localhost:4200  
+You can then modify the application code and changes will automatically reflect in the browser  
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To build a distributable version of the application use the following command:
+```
+docker build -t temperature-converter .
+```
+This will create the distributable files under dist folder, as well as a docker image that can be used as the runtime version.  
+The docker image runs the webapp in nginx.
+You could test the docker image locally by running:
+```
+docker run --name temperature-container -d -p 8080:80 temperature-converter
+```
+and then opening the browser at address localhost:8080

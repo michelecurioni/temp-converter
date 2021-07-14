@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
      return event.target.player.value;
   }
 
+  //converts the value from firstValue text field and populates the secondValueText based on the
+  //selected units
   convert(){
     let intermediateValue:number = this.firstValue;
     if (this.selectedUnitFrom === this.selectedUnitTo) {
@@ -80,7 +82,7 @@ export class HomeComponent implements OnInit {
     //update the ui
     this.selectedUnitTo = event.target.value;
     this.secondValueText = ''
-    console.log("Selected To = " + this.selectedUnitFrom);
+    console.log("Selected To = " + this.selectedUnitTo);
   }
 
   fromCelsiusToFahrenheit(value : number) : number {
