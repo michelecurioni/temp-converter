@@ -1,7 +1,7 @@
 <div class="calculator">
   <form class="tempcalc" (ngSubmit)="onSubmit($event)">
     <div class="col-sm-3 form-group">
-      <select name="cars" id="cars">
+      <select (change)="unitFromChangeHandler($event)">
         <option value="Celsius">Celsius</option>
         <option value="fahrenheit">fahrenheit</option>
       </select>
